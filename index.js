@@ -1,13 +1,8 @@
-const express = require('express');
+const express = require('express')
 const bodyParser = require('body-parser')
-const PORT = process.env.PORT || 8080;
-const app = express();
-app.get('/', (request, response) => {
-  response.send('Node.js')
-})
-app.listen(PORT, () => {
-  console.log(`App running on port ${PORT}.`)
-})
+const app = express()
+const db = require('./queries')
+const port = 3000
 
 app.use(bodyParser.json())
 app.use(
@@ -15,3 +10,17 @@ app.use(
     extended: true,
   })
 )
+
+app.get('/', (request, response) => {
+  response.json({ info: 'Node.js, Express, and Postgres API' })
+})
+
+app.get('/cities', db.getCities)
+app.get('/cities/:id', db.getCityById)
+app.post('/cities', db.createCity)
+app.put('/cities/:id', db.updateCity)
+app.delete('/cities/:id', db.deleteCity)
+
+app.listen(port, () => {
+  console.log(`App running on port ${port}.`)
+})
