@@ -1,11 +1,11 @@
 import React from 'react';
-import Table from './components/Table';
+import Main from './routes/Main';
 import './App.css';
 
 function App() {
   return (
     <div className="App">
-      <Table/>
+      <Main />
     </div>
   );
 }
